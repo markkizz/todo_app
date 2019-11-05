@@ -1,27 +1,7 @@
 
 $(document).ready(function() {
     refresh();
-    //refresh list
-    async function refresh() {
-        let temp = [];
-        let todotxt = '';
-        await axios.get('http://localhost:8080/todo')
-            .then(res => res.data)
-            .then(data => {
-                console.log(data);
-                temp = data;
-            });
-        for(let data of temp){
-            todotxt += `<li class="item" id="${data.id}">
-                            <i class="fa fa-circle-thin co" isComplete="${data.isComplete}"></i>
-                            <p class="text">${data.todoName}</p>
-                            <i class="fa fa-trash-o de" isTrash="${data.isTrash}"></i>
-                        </li>`;
-        }
-        $('.list').html(todotxt);
-    }
-
-    //todo status
+    //add todo
     $('#add-todo').on('click', async () =>{
         let todoName = $('#input').val();
         //send data
@@ -35,16 +15,33 @@ $(document).ready(function() {
         refresh();
     });
 
-    //delete todo
-    $('i[isTrash="false"]').on('click', () => {
-        // let txt = $(this).attr('isTrash');
-        // alert(txt);
-        alert('debug');
-    });
-
 });
-function trash(bool) {
-    console.log($(this).attr('isTrash'));
+
+//delete todo
+async function trash(th) {
+    let id = th.parentNode.id;
+    await axios.delete(`http://localhost:8080/todo/${id}`);
+    refresh();
+}
+
+//refresh list
+async function refresh() {
+    let temp = [];
+    let todotxt = '';
+    await axios.get('http://localhost:8080/todo')
+        .then(res => res.data)
+        .then(data => {
+            console.log(data);
+            temp = data;
+        });
+    for(let data of temp){
+        todotxt += `<li class="item" id="${data.id}">
+                        <i class="fa fa-circle-thin co" isComplete="${data.isComplete}"></i>
+                        <p class="text">${data.todoName}</p>
+                        <i class="fa fa-trash-o de" onclick="trash(this)"></i>
+                    </li>`;
+    }
+    $('.list').html(todotxt);
 }
 /*****
  * todo have {id, todo-name, isComplete, trash}
