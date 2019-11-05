@@ -4,11 +4,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 //route
 const todoRoute = require('./route/todoroute');
-//
+//cors
 app.use(cors());
 //body parse
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
 app.use(bodyParser.json());
 
@@ -17,7 +17,7 @@ app.use('/todo', todoRoute);
 
 
 //goto index
-app.use(express.static('../public'), function (req, res) {
+app.use(express.static('./public'), function (req, res) {
     res.send('404 Not found');
 });
 
@@ -25,4 +25,4 @@ app.use(express.static('../public'), function (req, res) {
 
 
 
-app.listen(3090, console.log('run server on port 3090..'));
+app.listen(8080, console.log('run server on port 8080..'));
