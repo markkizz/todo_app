@@ -32,6 +32,18 @@ const deleteList = (req, res) => {
     res.send(data);
 };
 
+const changeList = (req, res) => {
+    let id = parseInt(req.params.id);
+    for(ele of data){
+        if(ele.id === id) {
+            ele.isComplete = ele.isComplete ? (!true) : (!false);
+            break;
+        }
+    }
+    res.send(data);
+
+};
+
 function reList() {
     let temp = data.map((ele, index) => {
         return {
@@ -67,5 +79,6 @@ function reList() {
 module.exports = {
     getTodoList,
     createList,
-    deleteList
+    deleteList,
+    changeList
 };
