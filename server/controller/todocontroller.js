@@ -66,16 +66,6 @@ function reList() {
  *
  */
 
-
-
-
-
-
-
-
-
-
-
 module.exports = {
     getTodoList,
     createList,
