@@ -121,6 +121,7 @@ body{
 .add-to-do i{
     position: absolute;
     font-size: 40px;
+    cursor: pointer;
     color: #4162f6;
 }
 
