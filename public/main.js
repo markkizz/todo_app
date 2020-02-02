@@ -1,3 +1,5 @@
+const baseURL = 'http://103.74.255.221:8080/'
+
 $(document).ready(function() {
   refresh();
   //add todo
@@ -6,7 +8,7 @@ $(document).ready(function() {
     if (todoName) {
       //send data
       await axios
-        .post("http://localhost:8080/todo", {
+        .post(`${baseURL}/todo`, {
           todoName
         })
         .then(res => console.log(res.data));
@@ -22,14 +24,14 @@ $(document).ready(function() {
 //check complete
 async function comp(th) {
   let id = th.parentNode.id;
-  await axios.put(`http://localhost:8080/todo/${id}`);
+  await axios.put(`${baseURL}/todo/${id}`);
   refresh();
 }
 
 //delete todo
 async function trash(th) {
   let id = th.parentNode.id;
-  await axios.delete(`http://localhost:8080/todo/${id}`);
+  await axios.delete(`${baseURL}/todo/${id}`);
   refresh();
 }
 
@@ -40,7 +42,7 @@ async function refresh() {
   let check = "fa-check-circle",
     uncheck = "fa-circle-thin";
   await axios
-    .get("http://localhost:8080/todo")
+    .get(`${baseURL}/todo`)
     .then(res => res.data)
     .then(data => {
       console.log(data);
